@@ -13,3 +13,16 @@ Enable/Disable the options that will run when the song changes. You need to be l
 - Request favorites
 - Request unrated
 - Delete requests on cooldown
+
+
+## Building from source
+
+Requirements:
+- [Node v24](https://nodejs.org/en/download)
+- [pnpm](https://pnpm.io/installation)
+
+Build:
+1. `pnpm install`
+2. Chrome: `pnpm run zip`<br/>
+   Firefox: `pnpm run zip:firefox`
+3. Extension .zip files are in `.output` directory
