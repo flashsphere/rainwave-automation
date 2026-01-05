@@ -20,7 +20,7 @@ const loadScript = (url: string) => {
 export default defineContentScript({
   matches: ['https://rainwave.cc/*'],
   runAt: 'document_start',
-  async main() {
+  main() {
     addMessageListener(async (msg) => {
       if (msg.type !== 'SETTINGS_GET') return
 

@@ -33,19 +33,19 @@ const processMessage = async (jsonMsg: string) => {
     return
   }
 
-  autoRequestsRunning = true
-  runAutoRequests(settings, msg)
-    .catch((e) => console.error('Error running auto requests', e))
-    .finally(() => {
-      autoRequestsRunning = false
-    })
+  if (!autoRequestsRunning) {
+    autoRequestsRunning = true
+    runAutoRequests(settings, msg)
+      .catch((e) => console.error('Error running auto requests', e))
+      .finally(() => (autoRequestsRunning = false))
+  }
 
-  autoVotingRunning = true
-  runAutoVoting(settings, msg)
-    .catch((e) => console.error('Error running auto voting', e))
-    .finally(() => {
-      autoVotingRunning = false
-    })
+  if (!autoVotingRunning) {
+    autoVotingRunning = true
+    runAutoVoting(settings, msg)
+      .catch((e) => console.error('Error running auto voting', e))
+      .finally(() => (autoVotingRunning = false))
+  }
 }
 
 const parseJson = <T>(json: string): T | null => {
@@ -58,7 +58,6 @@ const parseJson = <T>(json: string): T | null => {
 }
 
 const runAutoRequests = async (settings: Settings, msg: WebSocketMessage) => {
-  if (autoRequestsRunning) return
   if (!msg.user || msg.user.id === 1 || msg.user.requests_paused) return
   if (!Array.isArray(msg.requests)) return
 
@@ -95,7 +94,6 @@ const runAutoRequests = async (settings: Settings, msg: WebSocketMessage) => {
 export const _runAutoRequests = runAutoRequests
 
 const runAutoVoting = async (settings: Settings, msg: WebSocketMessage) => {
-  if (autoVotingRunning) return
   if (!msg.sched_next || msg.sched_next.length === 0) return
 
   const rules = settings.autoVoteRules
