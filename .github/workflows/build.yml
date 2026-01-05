@@ -19,6 +19,24 @@ jobs:
           version: latest
           cache: true
 
+      - name: Compare package.json version with git tag
+        if: github.ref_type == 'tag'
+        run: |
+          # Get version from package.json
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          
+          # Get the latest tag
+          GIT_TAG=${{ github.ref_name }}
+          
+          echo "Package Version: $PKG_VERSION"
+          echo "Latest Git Tag: $GIT_TAG"
+
+          if [ "$PKG_VERSION" != "${GIT_TAG#v}" ]; then
+            echo "::error::Version mismatch! package.json is $PKG_VERSION but tag is $GIT_TAG"
+            exit 1
+          fi
+          echo "Versions match!"
+
       - name: Install dependencies
         run: pnpm install
 
