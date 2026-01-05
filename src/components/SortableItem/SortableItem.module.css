@@ -1,0 +1,6 @@
+.drag-handle {
+  cursor: grab;
+  padding: 5px;
+  user-select: none;
+  border: 0;
+}

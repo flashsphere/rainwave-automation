@@ -1,0 +1,30 @@
+.condition {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.and {
+  width: 100%;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.rule-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.condition-type-input,
+.request-input,
+.rating-input {
+  padding-bottom: 10px;
+}
+.button {
+  cursor: pointer;
+}
+.buttons {
+  padding-top: 10px;
+  display: flex;
+}
+.buttons button:nth-child(2) {
+  margin-left: auto;
+}

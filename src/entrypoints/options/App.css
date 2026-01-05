@@ -1,0 +1,12 @@
+:root {
+  color-scheme: dark;
+  --primary-color: #e8e6e3;
+  --primary-bg-color: #121212;
+}
+html {
+  color: var(--primary-color);
+  background-color: var(--primary-bg-color);
+}
+body {
+  font-size: 1rem;
+}

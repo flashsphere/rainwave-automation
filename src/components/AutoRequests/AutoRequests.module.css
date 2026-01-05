@@ -1,0 +1,10 @@
+.auto-request-item {
+  display: flex;
+  padding-bottom: 10px;
+}
+.auto-request-input {
+  padding-right: 10px;
+}
+.auto-request-desc {
+  font-size: 0.9rem;
+}
