@@ -18,6 +18,15 @@
 .rating-input {
   padding-bottom: 10px;
 }
+.rating-input input::-webkit-outer-spin-button,
+.rating-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.rating-input input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
 .button {
   cursor: pointer;
 }
