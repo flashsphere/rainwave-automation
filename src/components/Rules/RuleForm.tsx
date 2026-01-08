@@ -100,12 +100,18 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
   }
 
   const onRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const index = Number(e.currentTarget.dataset.index)
     const newRating = Number(e.currentTarget.value)
     if (Number.isNaN(newRating)) {
+      e.preventDefault()
       return
     }
 
+    if (newRating < 0 || newRating > 5) {
+      e.preventDefault()
+      return
+    }
+
+    const index = Number(e.currentTarget.dataset.index)
     setConditions((prev) => {
       const existingCondition = prev[index]
       const newConditions = [...prev]
