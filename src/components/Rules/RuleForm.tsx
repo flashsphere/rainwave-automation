@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styles from './RuleForm.module.css'
 import {
   conditionTypes,
@@ -35,6 +35,12 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
   const [conditions, setConditions] = useState<Condition[]>(
     rule ? rule.conditions : [createCondition(crypto.randomUUID(), conditionTypes[0])],
   )
+
+  const ratingRef = useRef<HTMLInputElement>(null)
+
+  const onRatingFocus = () => {
+    ratingRef.current?.select()
+  }
 
   const conditionOptions = conditionTypes.map((value) => ({
     value,
@@ -150,7 +156,7 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
   }
 
   return (
-    <div>
+    <div className={styles.ruleForm}>
       {conditions.map((c, i) => (
         <>
           <div key={c.id} className={styles.condition}>
@@ -196,6 +202,7 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
                   </select>
                   &nbsp;
                   <input
+                    ref={ratingRef}
                     type="number"
                     value={c.rating}
                     size={3}
@@ -203,6 +210,7 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
                     max={5}
                     data-index={i}
                     onInput={onRatingChange}
+                    onFocus={onRatingFocus}
                   />
                 </div>
               )}
