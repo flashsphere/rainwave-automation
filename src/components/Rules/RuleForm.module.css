@@ -25,6 +25,7 @@
 }
 .rating-input input[type='number'] {
   appearance: textfield;
+  width: 35px;
   -moz-appearance: textfield;
 }
 .button {
