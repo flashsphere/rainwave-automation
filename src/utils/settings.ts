@@ -1,6 +1,6 @@
 import type { Rule } from './rule'
 
-export type AutoRequestFlags = {
+export type AutoRequestSettings = {
   fave: boolean
   unrated: boolean
   clear: boolean
@@ -11,12 +11,12 @@ export type BehaviorSettings = {
 }
 
 export type Settings = {
-  autoRequests: AutoRequestFlags
+  autoRequests: AutoRequestSettings
   autoVoteRules: Rule[]
   behavior: BehaviorSettings
 }
 
-const autoRequests = storage.defineItem<AutoRequestFlags>('local:autoRequests', {
+const autoRequests = storage.defineItem<AutoRequestSettings>('local:autoRequests', {
   version: 1,
   fallback: { fave: false, unrated: false, clear: false },
 })
@@ -31,7 +31,7 @@ const behavior = storage.defineItem<BehaviorSettings>('local:behavior', {
   fallback: { playingOnWebsite: true },
 })
 
-export const updateAutoRequests = (flags: AutoRequestFlags): Promise<void> => {
+export const updateAutoRequests = (flags: AutoRequestSettings): Promise<void> => {
   return autoRequests.setValue(flags)
 }
 

@@ -1,9 +1,9 @@
 import styles from './AutoRequests.module.css'
-import type { AutoRequestFlags } from '@/utils/settings'
+import type { AutoRequestSettings } from '@/utils/settings'
 
 type AutoRequestsProps = {
-  autoRequests: AutoRequestFlags
-  save: (autoRequests: AutoRequestFlags) => void
+  autoRequests: AutoRequestSettings
+  save: (autoRequests: AutoRequestSettings) => void
 }
 
 export function AutoRequests({ autoRequests, save }: AutoRequestsProps) {

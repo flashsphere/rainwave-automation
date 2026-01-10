@@ -5,7 +5,7 @@ import {
   getSettings,
   updateAutoRequests,
   updateRules,
-  type AutoRequestFlags,
+  type AutoRequestSettings,
 } from '@/utils/settings'
 import { AutoRequests, Behavior, Rules } from '@/components'
 import './App.css'
@@ -14,7 +14,7 @@ import { extractError } from '@/utils/error'
 function App() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  const [autoRequests, setAutoRequests] = useState<AutoRequestFlags | null>(null)
+  const [autoRequests, setAutoRequests] = useState<AutoRequestSettings | null>(null)
   const [rules, setRules] = useState<Rule[] | null>(null)
   const [behavior, setBehavior] = useState<BehaviorSettings | null>(null)
 
@@ -34,7 +34,7 @@ function App() {
     loadData()
   }, [])
 
-  const saveAutoRequests = async (autoRequests: AutoRequestFlags) => {
+  const saveAutoRequests = async (autoRequests: AutoRequestSettings) => {
     setAutoRequests(autoRequests)
     await updateAutoRequests(autoRequests)
   }
