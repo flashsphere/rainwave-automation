@@ -1,0 +1,10 @@
+.behavior-item {
+  display: flex;
+  padding-bottom: 10px;
+}
+.behavior-input {
+  padding-right: 10px;
+}
+.behavior-desc {
+  font-size: 0.9rem;
+}

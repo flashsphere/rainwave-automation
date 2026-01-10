@@ -1,4 +1,5 @@
 export { AutoRequests } from './AutoRequests'
+export { Behavior } from './Behavior'
 export { Modal } from './Modal'
 export { Rules } from './Rules'
 export { DragHandle, SortableItem } from './SortableItem'

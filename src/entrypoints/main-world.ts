@@ -18,18 +18,21 @@ const processMessage = async (jsonMsg: string) => {
   const msg = parseJson<WebSocketMessage>(jsonMsg)
 
   if (msg == null) return
-  if (msg.user == null || !msg.user?.tuned_in) return
-  if (msg.sched_current == null) {
-    console.debug('Fetching info')
-    fetchInfo()
-    return
-  }
+  if (msg.user == null || msg.user.tuned_in !== true) return
 
   let settings: Settings
   try {
     settings = await getSettings()
   } catch (e) {
     console.error(e)
+    return
+  }
+
+  if (isPlayingOnWebsite(settings)) return
+
+  if (msg.sched_current == null) {
+    console.debug('Fetching info')
+    fetchInfo()
     return
   }
 
@@ -159,6 +162,13 @@ const getSettings = (): Promise<Settings> => {
 
     sendMessage('SETTINGS_GET', { id })
   })
+}
+
+const isPlayingOnWebsite = (settings: Settings): boolean => {
+  if (!settings.behavior.playingOnWebsite) return true
+
+  const elements = Array.from(document.querySelectorAll('audio'))
+  return elements.some((e) => !e.paused)
 }
 
 type WebSocketArgs = ConstructorParameters<typeof WebSocket>

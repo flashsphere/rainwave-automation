@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import type { Rule } from '@/utils/rule'
 import {
+  BehaviorSettings,
   getSettings,
   updateAutoRequests,
   updateRules,
   type AutoRequestFlags,
 } from '@/utils/settings'
-import { AutoRequests, Rules } from '@/components'
+import { AutoRequests, Behavior, Rules } from '@/components'
 import './App.css'
 import { extractError } from '@/utils/error'
 
@@ -15,6 +16,7 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [autoRequests, setAutoRequests] = useState<AutoRequestFlags | null>(null)
   const [rules, setRules] = useState<Rule[] | null>(null)
+  const [behavior, setBehavior] = useState<BehaviorSettings | null>(null)
 
   useEffect(() => {
     const loadData = async () => {
@@ -23,6 +25,7 @@ function App() {
         setLoading(false)
         setAutoRequests(settings.autoRequests)
         setRules(settings.autoVoteRules)
+        setBehavior(settings.behavior)
       } catch (e) {
         setLoading(false)
         setError(extractError(e))
@@ -41,12 +44,18 @@ function App() {
     await updateRules(rules)
   }
 
+  const saveBehavior = async (behavior: BehaviorSettings) => {
+    setBehavior(behavior)
+    await updateBehavior(behavior)
+  }
+
   return (
     <>
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {rules && <Rules rules={rules} save={saveRules} />}
       {autoRequests && <AutoRequests autoRequests={autoRequests} save={saveAutoRequests} />}
+      {behavior && <Behavior behavior={behavior} save={saveBehavior} />}
     </>
   )
 }
