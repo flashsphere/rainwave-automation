@@ -2,7 +2,7 @@
   "name": "rainwave-automation-extension",
   "description": "Adds automation features, auto voting and requests, to rainwave.cc",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "wxt",
