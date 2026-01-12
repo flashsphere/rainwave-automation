@@ -2,8 +2,9 @@
   "name": "rainwave-automation-extension",
   "description": "Adds automation features, auto voting and requests, to rainwave.cc",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
