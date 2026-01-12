@@ -4,6 +4,9 @@ import { defineConfig } from 'wxt';
 export default defineConfig({
   srcDir: 'src',
   modules: ['@wxt-dev/auto-icons', '@wxt-dev/module-react'],
+  autoIcons: {
+    sizes: [64],
+  },
   manifest: {
     name: "Rainwave automation",
     web_accessible_resources: [{

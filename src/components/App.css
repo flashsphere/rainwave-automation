@@ -8,5 +8,10 @@ html {
   background-color: var(--primary-bg-color);
 }
 body {
-  font-size: 1rem;
+  font-size: 14px;
+}
+@supports (-moz-appearance: none) {
+  body {
+    font-size: 16px;
+  }
 }
