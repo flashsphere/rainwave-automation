@@ -2,7 +2,7 @@
   "name": "rainwave-automation-extension",
   "description": "Adds automation features, auto voting and requests, to rainwave.cc",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "license": "MIT",
   "scripts": {
