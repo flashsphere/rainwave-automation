@@ -2,6 +2,8 @@ name: Build and Release WebExtension
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '*'
   workflow_dispatch:
@@ -49,32 +51,17 @@ jobs:
       - name: Package extension for Firefox
         run: pnpm run zip:firefox
 
-      - name: Upload artifact - Chrome
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: artifact-chrome
-          path: .output/*-chrome.zip
-          include-hidden-files: true
-          if-no-files-found: error
-
-      - name: Upload artifact - Firefox
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifact-firefox
-          path: .output/*-firefox.zip
-          include-hidden-files: true
-          if-no-files-found: error
-
-      - name: Upload artifact - Firefox sources
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifact-firefox-sources
-          path: .output/*-sources.zip
+          name: artifacts
+          path: .output/*.zip
           include-hidden-files: true
           if-no-files-found: error
 
   release:
     needs: build
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -82,9 +69,8 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           path: dist
-          pattern: artifact-*
+          pattern: artifacts
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
         with:
           files: dist/**/*.zip
