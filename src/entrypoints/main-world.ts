@@ -28,7 +28,7 @@ const processMessage = async (jsonMsg: string) => {
     return
   }
 
-  if (isPlayingOnWebsite(settings)) return
+  if (!isPlayingOnWebsite(settings)) return
 
   if (msg.sched_current == null) {
     console.debug('Fetching info')
