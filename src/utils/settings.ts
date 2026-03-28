@@ -16,35 +16,39 @@ export type Settings = {
   behavior: BehaviorSettings
 }
 
-const autoRequests = storage.defineItem<AutoRequestSettings>('local:autoRequests', {
+const autoRequestsSettings = storage.defineItem<AutoRequestSettings>('local:autoRequests', {
   version: 1,
   fallback: { fave: false, unrated: false, clear: false },
 })
 
-const autoVoteRules = storage.defineItem<Rule[]>('local:autoVoteRules', {
+const autoVoteRulesSettings = storage.defineItem<Rule[]>('local:autoVoteRules', {
   version: 1,
   fallback: [],
 })
 
-const behavior = storage.defineItem<BehaviorSettings>('local:behavior', {
+const behaviorSettings = storage.defineItem<BehaviorSettings>('local:behavior', {
   version: 1,
   fallback: { playingOnWebsite: true },
 })
 
 export const updateAutoRequests = (flags: AutoRequestSettings): Promise<void> => {
-  return autoRequests.setValue(flags)
+  return autoRequestsSettings.setValue(flags)
 }
 
 export const updateRules = (rules: Rule[]): Promise<void> => {
-  return autoVoteRules.setValue(rules)
+  return autoVoteRulesSettings.setValue(rules)
 }
 
 export const updateBehavior = (settings: BehaviorSettings): Promise<void> => {
-  return behavior.setValue(settings)
+  return behaviorSettings.setValue(settings)
 }
 
-export const getSettings = async (): Promise<Settings> => ({
-  autoRequests: await autoRequests.getValue(),
-  autoVoteRules: await autoVoteRules.getValue(),
-  behavior: await behavior.getValue(),
-})
+export const getSettings = async (): Promise<Settings> => {
+  const [autoRequests, autoVoteRules, behavior] = await Promise.all([
+    autoRequestsSettings.getValue(),
+    autoVoteRulesSettings.getValue(),
+    behaviorSettings.getValue(),
+  ])
+
+  return { autoRequests, autoVoteRules, behavior }
+}

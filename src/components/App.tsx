@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, use, Suspense } from 'react'
 import type { Rule } from '@/utils/rule'
 import {
   BehaviorSettings,
@@ -7,32 +7,17 @@ import {
   updateRules,
   type AutoRequestSettings,
 } from '@/utils/settings'
-import { AutoRequests, Behavior, Rules } from '@/components'
+import { AutoRequests, Behavior, Rules, ErrorBoundary } from '@/components'
 import './App.css'
-import { extractError } from '@/utils/error'
 
-function App() {
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-  const [autoRequests, setAutoRequests] = useState<AutoRequestSettings | null>(null)
-  const [rules, setRules] = useState<Rule[] | null>(null)
-  const [behavior, setBehavior] = useState<BehaviorSettings | null>(null)
+const settingsPromise = getSettings()
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const settings = await getSettings()
-        setLoading(false)
-        setAutoRequests(settings.autoRequests)
-        setRules(settings.autoVoteRules)
-        setBehavior(settings.behavior)
-      } catch (e) {
-        setLoading(false)
-        setError(extractError(e))
-      }
-    }
-    loadData()
-  }, [])
+function AppContent() {
+  const settings = use(settingsPromise)
+
+  const [autoRequests, setAutoRequests] = useState<AutoRequestSettings>(settings.autoRequests)
+  const [rules, setRules] = useState<Rule[]>(settings.autoVoteRules)
+  const [behavior, setBehavior] = useState<BehaviorSettings>(settings.behavior)
 
   const saveAutoRequests = async (autoRequests: AutoRequestSettings) => {
     setAutoRequests(autoRequests)
@@ -51,12 +36,22 @@ function App() {
 
   return (
     <>
-      {loading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {rules && <Rules rules={rules} save={saveRules} />}
-      {autoRequests && <AutoRequests autoRequests={autoRequests} save={saveAutoRequests} />}
-      {behavior && <Behavior behavior={behavior} save={saveBehavior} />}
+      <Rules rules={rules} save={saveRules} />
+      <AutoRequests autoRequests={autoRequests} save={saveAutoRequests} />
+      <Behavior behavior={behavior} save={saveBehavior} />
     </>
+  )
+}
+
+function App() {
+  const retry = () => window.location.reload()
+
+  return (
+    <ErrorBoundary retry={retry}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AppContent />
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
