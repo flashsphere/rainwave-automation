@@ -14,7 +14,7 @@ export default defineConfig([
       reactEslint.configs["recommended-typescript"],
     ],
     languageOptions: {
-      parser: tseslint.parser,
+      parser: tsEslint.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
