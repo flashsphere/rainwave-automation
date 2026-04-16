@@ -14,20 +14,16 @@ export default defineConfig({
       matches: ["https://rainwave.cc/*"],
     }],
     permissions: ['storage'],
-  },
-  hooks: {
-    'build:manifestGenerated': (wxt, manifest) => {
-      manifest['browser_specific_settings'] = {
-        gecko: {
-          id: '@rainwave-automation',
-          data_collection_permissions: {
-            'required': [
-              'none'
-            ]
-          }
+    browser_specific_settings: {
+      gecko: {
+        id: '@rainwave-automation',
+        data_collection_permissions: {
+          'required': [
+            'none'
+          ]
         }
       }
-    },
+    }
   },
   imports: {
     eslintrc: {

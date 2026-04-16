@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from 'react'
+import React, { createContext, use, useMemo } from 'react'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import type { DraggableSyntheticListeners, UniqueIdentifier } from '@dnd-kit/core'
 import { useSortable } from '@dnd-kit/sortable'
@@ -47,16 +47,16 @@ export function SortableItem({ children, id }: PropsWithChildren<Props>) {
   }
 
   return (
-    <SortableItemContext.Provider value={context}>
+    <SortableItemContext value={context}>
       <div ref={setNodeRef} style={style}>
         {children}
       </div>
-    </SortableItemContext.Provider>
+    </SortableItemContext>
   )
 }
 
 export function DragHandle() {
-  const { attributes, listeners, ref } = useContext(SortableItemContext)
+  const { attributes, listeners, ref } = use(SortableItemContext)
 
   return (
     <button className={styles.dragHandle} {...attributes} {...listeners} ref={ref}>

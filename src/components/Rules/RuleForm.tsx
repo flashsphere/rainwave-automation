@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, Fragment } from 'react'
 import styles from './RuleForm.module.css'
 import {
   conditionTypes,
@@ -32,7 +32,7 @@ const createCondition = (id: string, type: ConditionType): Condition => {
 }
 
 export function RuleForm({ rule, save, cancel }: RuleFormProps) {
-  const [conditions, setConditions] = useState<Condition[]>(
+  const [conditions, setConditions] = useState<Condition[]>(() =>
     rule ? rule.conditions : [createCondition(crypto.randomUUID(), conditionTypes[0])],
   )
 
@@ -99,7 +99,7 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
     })
   }
 
-  const onRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onRatingChange = (e: React.InputEvent<HTMLInputElement>) => {
     const newRating = Number(e.currentTarget.value)
     if (Number.isNaN(newRating)) {
       e.preventDefault()
@@ -164,8 +164,8 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
   return (
     <div className={styles.ruleForm}>
       {conditions.map((c, i) => (
-        <>
-          <div key={c.id} className={styles.condition}>
+        <Fragment key={c.id}>
+          <div className={styles.condition}>
             <button className={styles.button} data-index={i} onClick={removeCondition}>
               ✕
             </button>
@@ -223,7 +223,7 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
             </div>
           </div>
           {i < conditions.length - 1 && <div className={styles.and}>and</div>}
-        </>
+        </Fragment>
       ))}
       <div className={styles.buttons}>
         <button
