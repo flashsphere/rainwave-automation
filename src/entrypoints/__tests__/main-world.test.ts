@@ -22,6 +22,7 @@ describe('runAutoRequests', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -52,6 +53,7 @@ describe('runAutoRequests', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -82,6 +84,7 @@ describe('runAutoRequests', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -123,6 +126,7 @@ describe('runAutoRequests', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -182,6 +186,7 @@ describe('runAutoRequests', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -211,6 +216,7 @@ describe('runAutoVoting', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: rules,
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -230,6 +236,7 @@ describe('runAutoVoting', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: [],
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -250,6 +257,7 @@ describe('runAutoVoting', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: rules,
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -271,6 +279,7 @@ describe('runAutoVoting', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: rules,
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
@@ -292,6 +301,7 @@ describe('runAutoVoting', () => {
     const settings: Settings = {
       autoRequests: { clear: true, fave: true, unrated: true },
       autoVoteRules: rules,
+      behavior: { playingOnWebsite: true },
     }
     const msg: WebSocketMessage = {
       user: {
