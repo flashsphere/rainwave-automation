@@ -3,8 +3,23 @@ allowBuilds:
   sharp: true
   spawn-sync: true
 minimumReleaseAgeExclude:
+  - '@eslint-react/ast@5.8.18'
+  - '@eslint-react/core@5.8.18'
+  - '@eslint-react/eslint-plugin@5.8.18'
+  - '@eslint-react/eslint@5.8.18'
+  - '@eslint-react/jsx@5.8.18'
+  - '@eslint-react/shared@5.8.18'
+  - '@eslint-react/var@5.8.18'
+  - eslint-plugin-react-dom@5.8.18
+  - eslint-plugin-react-jsx@5.8.18
+  - eslint-plugin-react-naming-convention@5.8.18
+  - eslint-plugin-react-rsc@5.8.18
+  - eslint-plugin-react-web-api@5.8.18
+  - eslint-plugin-react-x@5.8.18
   - uuid@11.1.1
   - tmp@0.2.6
+  - shell-quote@1.8.4
 overrides:
+  shell-quote@>=1.1.0 <=1.8.3: ^1.8.4
   tmp@<0.2.6: ^0.2.6
   uuid@<11.1.1: ^11.1.1
