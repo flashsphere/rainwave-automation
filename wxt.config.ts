@@ -7,6 +7,7 @@ export default defineConfig({
   autoIcons: {
     sizes: [64],
   },
+  manifestVersion: 3,
   manifest: {
     name: "Rainwave automation",
     web_accessible_resources: [{
