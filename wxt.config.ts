@@ -31,16 +31,6 @@ export default defineConfig({
     },
   },
   vite: (env) => ({
-    esbuild: env.mode === 'production' ? {
-      drop: ['debugger'],
-      pure: [
-        'console.log',
-        'console.info',
-        'console.debug',
-        'console.warn',
-        'console.trace',
-      ],
-    } : undefined,
     css: {
       modules: {
         localsConvention: 'camelCase',
@@ -49,6 +39,24 @@ export default defineConfig({
     build: {
       emptyOutDir: true,
       sourcemap: true,
+      rolldownOptions: {
+        output: {
+          minify: {
+            compress: {
+              dropDebugger: env.mode === 'production',
+              treeshake: env.mode === 'production' ? {
+                manualPureFunctions: [
+                  'console.log',
+                  'console.info',
+                  'console.debug',
+                  'console.warn',
+                  'console.trace',
+                ]
+              } : undefined,
+            }
+          }
+        }
+      }
     },
   }),
 });
