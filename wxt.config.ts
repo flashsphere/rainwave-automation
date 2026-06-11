@@ -14,7 +14,8 @@ export default defineConfig({
       resources: ["main-world.js"],
       matches: ["https://rainwave.cc/*"],
     }],
-    permissions: ['storage'],
+    permissions: ['cookies', 'storage'],
+    host_permissions: ['https://rainwave.cc/*'],
     browser_specific_settings: {
       gecko: {
         id: '@rainwave-automation',

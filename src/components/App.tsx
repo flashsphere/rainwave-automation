@@ -7,7 +7,7 @@ import {
   updateRules,
   type AutoRequestSettings,
 } from '@/utils/settings'
-import { AutoRequests, Behavior, Rules, ErrorBoundary } from '@/components'
+import { AutoRequests, Behavior, Rules, CookieMgmt, ErrorBoundary } from '@/components'
 import './App.css'
 
 const settingsPromise = getSettings()
@@ -39,6 +39,8 @@ function AppContent() {
       <Rules rules={rules} save={saveRules} />
       <AutoRequests autoRequests={autoRequests} save={saveAutoRequests} />
       <Behavior behavior={behavior} save={saveBehavior} />
+      <CookieMgmt />
+      <div>&nbsp;</div>
     </>
   )
 }
