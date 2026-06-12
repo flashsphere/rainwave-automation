@@ -46,6 +46,18 @@ export function RuleList({ rules, edit, remove, reorder }: RuleListProps) {
     setActive(null)
   }
 
+  const handleMoveUp = (index: number) => {
+    const newIndex = Math.max(0, index - 1)
+    if (newIndex === index) return
+    reorder(index, newIndex)
+  }
+
+  const handleMoveDown = (index: number) => {
+    const newIndex = Math.min(rules.length - 1, index + 1)
+    if (newIndex === index) return
+    reorder(index, newIndex)
+  }
+
   const handleEdit = (rule: Rule) => {
     edit(rule)
   }
@@ -72,6 +84,9 @@ export function RuleList({ rules, edit, remove, reorder }: RuleListProps) {
     return null
   }, [active, rules])
 
+  const isFireFox = navigator.userAgent.includes('Firefox/')
+  const isPopup = window.location.pathname.includes('/popup')
+
   return (
     <DndContext
       sensors={sensors}
@@ -82,7 +97,15 @@ export function RuleList({ rules, edit, remove, reorder }: RuleListProps) {
       <SortableContext items={rules} strategy={verticalListSortingStrategy}>
         {rules.map((r, ri) => (
           <SortableItem key={r.id} id={r.id}>
-            <RuleListItem rule={r} index={ri} handleEdit={handleEdit} handleDelete={handleDelete} />
+            <RuleListItem
+              rule={r}
+              index={ri}
+              showDragHandle={!isFireFox || !isPopup}
+              handleMoveUp={handleMoveUp}
+              handleMoveDown={handleMoveDown}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           </SortableItem>
         ))}
       </SortableContext>

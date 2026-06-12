@@ -10,11 +10,16 @@ import {
 type RuleListItemProps = {
   rule: Rule
   index: number
+  showDragHandle?: boolean
+  handleMoveUp?: (index: number) => void
+  handleMoveDown?: (index: number) => void
   handleEdit: (rule: Rule) => void
   handleDelete: (index: number) => void
 }
 
 export function RuleListItem({ rule, index, ...props }: RuleListItemProps) {
+  const showDragHandle = props.showDragHandle ?? true
+
   const renderRequest = (c: RequestCondition) => {
     switch (c.requestType) {
       case 'User':
@@ -34,6 +39,14 @@ export function RuleListItem({ rule, index, ...props }: RuleListItemProps) {
 
   const renderFaveAlbum = () => <span>Favorite album</span>
 
+  const handleMoveUp = () => {
+    props.handleMoveUp?.(index)
+  }
+
+  const handleMoveDown = () => {
+    props.handleMoveDown?.(index)
+  }
+
   const handleEdit = () => {
     props.handleEdit(rule)
   }
@@ -44,7 +57,13 @@ export function RuleListItem({ rule, index, ...props }: RuleListItemProps) {
 
   return (
     <div key={rule.id} className={styles.ruleItem}>
-      <DragHandle />
+      {showDragHandle && <DragHandle />}
+      {!showDragHandle && (
+        <div className={styles.actionIcons}>
+          <button onClick={handleMoveUp}>⬆️</button>
+          <button onClick={handleMoveDown}>⬇️</button>
+        </div>
+      )}
       <div className={styles.ruleContent}>
         <div className={styles.ruleNumber}>{index + 1}.</div>
         <div>
@@ -60,12 +79,8 @@ export function RuleListItem({ rule, index, ...props }: RuleListItemProps) {
         </div>
       </div>
       <div className={styles.actionIcons}>
-        <button onClick={handleEdit} className={styles.editIcon}>
-          🖊️
-        </button>
-        <button onClick={handleDelete} className={styles.deleteIcon}>
-          ❌
-        </button>
+        <button onClick={handleEdit}>🖊️</button>
+        <button onClick={handleDelete}>❌</button>
       </div>
     </div>
   )
