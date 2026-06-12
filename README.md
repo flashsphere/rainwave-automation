@@ -14,6 +14,8 @@ Enable/Disable the options that will run when the song changes. You need to be l
 - Request unrated
 - Delete requests on cooldown
 
+### Cookies
+Import/export your rainwave.cc cookies to use the same session on another device/machine. Useful when you need to sign in to Rainwave on a device where Discord access is unavailable or blocked.
 
 ## Building from source
 
