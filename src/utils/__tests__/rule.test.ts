@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { applyRule, Rule } from '@/utils/rule'
-import { Song } from '@/utils/rainwave-types'
+import { applyRule } from '@/utils/rule'
+import type { Rule } from '@/utils/rule'
+import type { Song } from '@/utils/rainwave-types'
 
 describe('rule', () => {
   afterEach(() => {
@@ -45,7 +46,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[2].id)
+    expect(song?.id).toBe(songs[2]!.id)
   })
   it('fave album and >= rating', () => {
     const songs: Song[] = [
@@ -84,7 +85,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[1].id)
+    expect(song?.id).toBe(songs[1]!.id)
   })
   it('fave song and <= rating', () => {
     const songs: Song[] = [
@@ -124,7 +125,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[1].id)
+    expect(song?.id).toBe(songs[1]!.id)
   })
   it('fave album and <= rating', () => {
     const songs: Song[] = [
@@ -163,7 +164,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[2].id)
+    expect(song?.id).toBe(songs[2]!.id)
   })
   it('user request', () => {
     const songs: Song[] = [
@@ -191,7 +192,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[1].id)
+    expect(song?.id).toBe(songs[1]!.id)
   })
   it('others request and fave song', () => {
     const songs: Song[] = [
@@ -227,7 +228,7 @@ describe('rule', () => {
     const song = applyRule(rule, songs, { userId: 1 })
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[1].id)
+    expect(song?.id).toBe(songs[1]!.id)
   })
   it('multiple rules', () => {
     const songs: Song[] = [
@@ -305,7 +306,7 @@ describe('rule', () => {
     }
 
     expect(song).not.toBeNull()
-    expect(song?.id).toBe(songs[0].id)
+    expect(song?.id).toBe(songs[0]!.id)
   })
 
   const createSong = (props: Partial<Song>): Song => ({

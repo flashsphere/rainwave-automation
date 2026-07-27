@@ -75,13 +75,13 @@ export function RuleList({ rules, edit, remove, reorder }: RuleListProps) {
 
   const activeItem = useMemo(() => {
     const index = rules.findIndex((r) => r.id === active?.id)
-    if (index > -1 && index < rules.length) {
-      return {
-        rule: rules[index],
-        index,
-      }
+    if (index === -1) {
+      return null
     }
-    return null
+    return {
+      rule: rules[index]!,
+      index,
+    }
   }, [active, rules])
 
   const isFireFox = navigator.userAgent.includes('Firefox/')

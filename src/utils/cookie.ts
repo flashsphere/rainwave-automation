@@ -123,7 +123,11 @@ export const importCookies = async (file: File): Promise<number> => {
   return cookiesImported
 }
 
-const splitNameValue = (cookie: string) => {
+const splitNameValue = (cookie: string | undefined) => {
+  if (cookie == null) {
+    return { name: '', value: '' }
+  }
+
   const index = cookie.indexOf('=')
 
   if (index === -1) {

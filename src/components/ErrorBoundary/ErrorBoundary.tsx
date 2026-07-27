@@ -1,4 +1,5 @@
-import { Component, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { Component } from 'react'
 import { extractError } from '@/utils/error'
 
 type Props = {
@@ -11,7 +12,7 @@ type State = {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  state: State = { error: null }
+  override state: State = { error: null }
 
   static getDerivedStateFromError(error: Error): State {
     return { error }
@@ -23,7 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
     })
   }
 
-  render() {
+  override render() {
     if (this.state.error) {
       return (
         <div>

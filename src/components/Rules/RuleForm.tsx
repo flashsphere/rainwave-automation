@@ -57,46 +57,25 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
     const index = Number(e.currentTarget.dataset.index)
     const newType = e.currentTarget.value as ConditionType
 
-    setConditions((prev) => {
-      const existingCondition = prev[index]
-      const newConditions = [...prev]
-      newConditions[index] = createCondition(existingCondition.id, newType)
-      return newConditions
-    })
+    updateCondition(index, (condition) => createCondition(condition.id, newType))
   }
 
   const onRequestTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const index = Number(e.currentTarget.dataset.index)
     const newType = e.currentTarget.value as RequestType
 
-    setConditions((prev) => {
-      const existingCondition = prev[index]
-      const newConditions = [...prev]
-      if (existingCondition.type === 'Request') {
-        newConditions[index] = {
-          ...existingCondition,
-          requestType: newType,
-        }
-      }
-      return newConditions
-    })
+    updateCondition(index, (condition) =>
+      condition.type === 'Request' ? { ...condition, requestType: newType } : condition,
+    )
   }
 
   const onOperatorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const index = Number(e.currentTarget.dataset.index)
     const newOperator = e.currentTarget.value as Operator
 
-    setConditions((prev) => {
-      const existingCondition = prev[index]
-      const newConditions = [...prev]
-      if (existingCondition.type === 'Rating') {
-        newConditions[index] = {
-          ...existingCondition,
-          operator: newOperator,
-        }
-      }
-      return newConditions
-    })
+    updateCondition(index, (condition) =>
+      condition.type === 'Rating' ? { ...condition, operator: newOperator } : condition,
+    )
   }
 
   const onRatingChange = (e: React.InputEvent<HTMLInputElement>) => {
@@ -112,15 +91,22 @@ export function RuleForm({ rule, save, cancel }: RuleFormProps) {
     }
 
     const index = Number(e.currentTarget.dataset.index)
+    updateCondition(index, (condition) =>
+      condition.type === 'Rating' ? { ...condition, rating: newRating } : condition,
+    )
+  }
+
+  const updateCondition = (index: number, updater: (condition: Condition) => Condition) => {
     setConditions((prev) => {
       const existingCondition = prev[index]
-      const newConditions = [...prev]
-      if (existingCondition.type === 'Rating') {
-        newConditions[index] = {
-          ...existingCondition,
-          rating: newRating,
-        }
+
+      if (existingCondition == null) {
+        return prev
       }
+
+      const newConditions = [...prev]
+      newConditions[index] = updater(existingCondition)
+
       return newConditions
     })
   }

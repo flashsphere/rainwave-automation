@@ -1,7 +1,7 @@
 import { useState, use, Suspense } from 'react'
 import type { Rule } from '@/utils/rule'
+import type { BehaviorSettings } from '@/utils/settings'
 import {
-  BehaviorSettings,
   getSettings,
   updateAutoRequests,
   updateRules,

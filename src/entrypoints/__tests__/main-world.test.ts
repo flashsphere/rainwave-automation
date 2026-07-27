@@ -2,9 +2,9 @@
 
 import { describe, it, expect, vi, afterEach } from 'vitest'
 import { _runAutoRequests, _runAutoVoting } from '../main-world'
-import { Settings } from '@/utils/settings'
-import { WebSocketMessage, Event, VoteResponse } from '@/utils/rainwave-types'
-import { Rule } from '@/utils/rule'
+import type { Settings } from '@/utils/settings'
+import type { WebSocketMessage, Event, VoteResponse } from '@/utils/rainwave-types'
+import type { Rule } from '@/utils/rule'
 import * as api from '@/utils/api'
 import * as rule from '@/utils/rule'
 
@@ -39,10 +39,10 @@ describe('runAutoRequests', () => {
       ],
     }
     await _runAutoRequests(settings, msg)
-    expect(clearRequestsSpy).not.toBeCalled()
-    expect(deleteRequestSpy).not.toBeCalled()
-    expect(requestFaveSpy).not.toBeCalled()
-    expect(requestUnratedSpy).not.toBeCalled()
+    expect(clearRequestsSpy).not.toHaveBeenCalled()
+    expect(deleteRequestSpy).not.toHaveBeenCalled()
+    expect(requestFaveSpy).not.toHaveBeenCalled()
+    expect(requestUnratedSpy).not.toHaveBeenCalled()
   })
   it('does not run when user requests is paused', async () => {
     const clearRequestsSpy = vi.spyOn(api, 'clearRequests').mockResolvedValue([])
@@ -70,10 +70,10 @@ describe('runAutoRequests', () => {
       ],
     }
     await _runAutoRequests(settings, msg)
-    expect(clearRequestsSpy).not.toBeCalled()
-    expect(deleteRequestSpy).not.toBeCalled()
-    expect(requestFaveSpy).not.toBeCalled()
-    expect(requestUnratedSpy).not.toBeCalled()
+    expect(clearRequestsSpy).not.toHaveBeenCalled()
+    expect(deleteRequestSpy).not.toHaveBeenCalled()
+    expect(requestFaveSpy).not.toHaveBeenCalled()
+    expect(requestUnratedSpy).not.toHaveBeenCalled()
   })
   it('clears all requests when all are cool, and then request fave and unrated', async () => {
     const clearRequestsSpy = vi.spyOn(api, 'clearRequests').mockResolvedValue([])
@@ -106,10 +106,10 @@ describe('runAutoRequests', () => {
       ],
     }
     await _runAutoRequests(settings, msg)
-    expect(clearRequestsSpy).toBeCalled()
-    expect(deleteRequestSpy).not.toBeCalled()
-    expect(requestFaveSpy).toBeCalled()
-    expect(requestUnratedSpy).toBeCalled()
+    expect(clearRequestsSpy).toHaveBeenCalled()
+    expect(deleteRequestSpy).not.toHaveBeenCalled()
+    expect(requestFaveSpy).toHaveBeenCalled()
+    expect(requestUnratedSpy).toHaveBeenCalled()
   })
   it('delete requests that are cool or not good but does not request fave / unrated', async () => {
     const clearRequestsSpy = vi.spyOn(api, 'clearRequests').mockResolvedValue([])
@@ -158,13 +158,13 @@ describe('runAutoRequests', () => {
       ],
     }
     await _runAutoRequests(settings, msg)
-    expect(clearRequestsSpy).not.toBeCalled()
-    expect(deleteRequestSpy).toBeCalledTimes(3)
-    expect(deleteRequestSpy).toBeCalledWith(1)
-    expect(deleteRequestSpy).toBeCalledWith(2)
-    expect(deleteRequestSpy).toBeCalledWith(4)
-    expect(requestFaveSpy).not.toBeCalled()
-    expect(requestUnratedSpy).not.toBeCalled()
+    expect(clearRequestsSpy).not.toHaveBeenCalled()
+    expect(deleteRequestSpy).toHaveBeenCalledTimes(3)
+    expect(deleteRequestSpy).toHaveBeenCalledWith(1)
+    expect(deleteRequestSpy).toHaveBeenCalledWith(2)
+    expect(deleteRequestSpy).toHaveBeenCalledWith(4)
+    expect(requestFaveSpy).not.toHaveBeenCalled()
+    expect(requestUnratedSpy).not.toHaveBeenCalled()
   })
   it('does not request unrated when request fave has requests', async () => {
     const clearRequestsSpy = vi.spyOn(api, 'clearRequests').mockResolvedValue([])
@@ -197,10 +197,10 @@ describe('runAutoRequests', () => {
       requests: [],
     }
     await _runAutoRequests(settings, msg)
-    expect(clearRequestsSpy).not.toBeCalled()
-    expect(deleteRequestSpy).not.toBeCalled()
-    expect(requestFaveSpy).toBeCalled()
-    expect(requestUnratedSpy).not.toBeCalled()
+    expect(clearRequestsSpy).not.toHaveBeenCalled()
+    expect(deleteRequestSpy).not.toHaveBeenCalled()
+    expect(requestFaveSpy).toHaveBeenCalled()
+    expect(requestUnratedSpy).not.toHaveBeenCalled()
   })
 })
 
@@ -226,8 +226,8 @@ describe('runAutoVoting', () => {
       },
     }
     await _runAutoVoting(settings, msg)
-    expect(applyRuleSpy).not.toBeCalled()
-    expect(voteSongSpy).not.toBeCalled()
+    expect(applyRuleSpy).not.toHaveBeenCalled()
+    expect(voteSongSpy).not.toHaveBeenCalled()
   })
   it('does not run when there are no rules', async () => {
     const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(null)
@@ -247,11 +247,11 @@ describe('runAutoVoting', () => {
       sched_next: events,
     }
     await _runAutoVoting(settings, msg)
-    expect(applyRuleSpy).not.toBeCalled()
-    expect(voteSongSpy).not.toBeCalled()
+    expect(applyRuleSpy).not.toHaveBeenCalled()
+    expect(voteSongSpy).not.toHaveBeenCalled()
   })
   it('does not vote song if it is already voted', async () => {
-    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0].songs[0])
+    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0]!.songs[0]!)
     const voteSongSpy = vi.spyOn(api, 'voteSong').mockResolvedValue(voteResult(false))
 
     const settings: Settings = {
@@ -266,14 +266,14 @@ describe('runAutoVoting', () => {
         tuned_in: true,
       },
       sched_next: events,
-      already_voted: [[events[0].id, events[0].songs[0].entry_id]],
+      already_voted: [[events[0]!.id, events[0]!.songs[0]!.entry_id]],
     }
     await _runAutoVoting(settings, msg)
-    expect(applyRuleSpy).toBeCalled()
-    expect(voteSongSpy).not.toBeCalled()
+    expect(applyRuleSpy).toHaveBeenCalled()
+    expect(voteSongSpy).not.toHaveBeenCalled()
   })
   it('does not vote song if it is a requested song', async () => {
-    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0].songs[1])
+    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0]!.songs[1]!)
     const voteSongSpy = vi.spyOn(api, 'voteSong').mockResolvedValue(voteResult(false))
 
     const settings: Settings = {
@@ -291,11 +291,11 @@ describe('runAutoVoting', () => {
       already_voted: [],
     }
     await _runAutoVoting(settings, msg)
-    expect(applyRuleSpy).toBeCalled()
-    expect(voteSongSpy).not.toBeCalled()
+    expect(applyRuleSpy).toHaveBeenCalled()
+    expect(voteSongSpy).not.toHaveBeenCalled()
   })
   it('votes a song', async () => {
-    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0].songs[0])
+    const applyRuleSpy = vi.spyOn(rule, 'applyRule').mockReturnValue(events[0]!.songs[0]!)
     const voteSongSpy = vi.spyOn(api, 'voteSong').mockResolvedValue(voteResult(true))
 
     const settings: Settings = {
@@ -313,9 +313,9 @@ describe('runAutoVoting', () => {
       already_voted: [],
     }
     await _runAutoVoting(settings, msg)
-    expect(applyRuleSpy).toBeCalled()
-    expect(voteSongSpy).toBeCalled()
-    expect(voteSongSpy).toBeCalledWith(events[0].songs[0].entry_id)
+    expect(applyRuleSpy).toHaveBeenCalled()
+    expect(voteSongSpy).toHaveBeenCalled()
+    expect(voteSongSpy).toHaveBeenCalledWith(events[0]!.songs[0]!.entry_id)
   })
 
   const rules: Rule[] = [
