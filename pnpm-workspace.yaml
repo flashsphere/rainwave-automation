@@ -3,18 +3,7 @@ allowBuilds:
   sharp: true
   spawn-sync: true
 minimumReleaseAgeExclude:
-  - wxt@0.21.1
-  - uuid@11.1.1
-  - shell-quote@1.8.4 || 1.8.5
-  - tmp@0.2.6
-  - adm-zip@0.6.0
+  - wxt@0.21.2
   - sharp@0.35.0
-  - brace-expansion@5.0.8
 overrides:
-  adm-zip@<0.6.0: ^0.6.0
-  brace-expansion@<=5.0.7: ^5.0.8
   sharp@<0.35.0: ^0.35.0
-  shell-quote@<=1.8.4: ^1.8.5
-  shell-quote@>=1.1.0 <=1.8.3: ^1.8.4
-  tmp@<0.2.6: ^0.2.6
-  uuid@<11.1.1: ^11.1.1
