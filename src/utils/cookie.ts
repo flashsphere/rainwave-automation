@@ -101,9 +101,15 @@ export const importCookies = async (file: File): Promise<number> => {
       }
     }
 
+    const normalized = domain?.replace(/^\./, '')
+
+    if (normalized != null && normalized !== supportedDomain) {
+      continue
+    }
+
     const url = new URL(
       path,
-      `${secure ? 'https' : 'http'}://${domain?.replace(/^\./, '') || supportedDomain}`,
+      `${secure ? 'https' : 'http'}://${normalized || supportedDomain}`,
     ).toString()
 
     await browser.cookies.set({

@@ -47,6 +47,7 @@ describe('cookies', () => {
       'r4_session_id=abc123; Path=/; Expires=Fri, 11 Jun 2027 07:44:56 GMT; Secure; HttpOnly; SameSite=lax',
       'r5_prefs=def456; Domain=rainwave.cc; Path=/; Expires=Fri, 11 Jun 2027 07:44:56 GMT; HttpOnly',
       'test=def456; Domain=rainwave.cc; Path=/',
+      'r5_prefs=abcdef; Domain=google.com; Path=/',
     ].join('\n')
 
     const file = new File([text], 'cookies.txt', { type: 'text/plain' })
