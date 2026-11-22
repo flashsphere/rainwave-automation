@@ -5,7 +5,7 @@ export default defineConfig({
   srcDir: 'src',
   modules: ['@wxt-dev/auto-icons', '@wxt-dev/module-react'],
   autoIcons: {
-    sizes: [64],
+    sizes: [128, 48, 32, 16, 64],
   },
   manifestVersion: 3,
   manifest: {
